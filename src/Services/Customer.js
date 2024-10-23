@@ -2,7 +2,7 @@
 import axios from "axios";
 
     
-const baseUrl = "https://localhost:7062/api/customers"
+const baseUrl = "https://localhost:7062/api/Customers"
 
 const getAll = () => {
     const request = axios.get(baseUrl)
@@ -23,4 +23,11 @@ const remove =(id) => {
 }
 
 
-export default {getAll, addNew, remove}
+
+const edit =(object) => {
+    const request = axios.put(baseUrl + "/" + object.customerId, object )
+    return request.then(response => response.data)
+}
+
+
+export default {getAll, addNew, remove, edit}

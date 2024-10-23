@@ -1,11 +1,14 @@
 import '../App.css'
 import { useState } from 'react'
 import CustomerService from '../Services/Customer'
+import CustomerEdit from './CustomerEdit'
 
 // prips on otettu vastaa suoraan nimellä suluissa
 const Customer= ({customer, setMessage,setShowMessage,setIsPositive})=> {
-// State
+
+    // State
 const [showDetails, setShowDetails]= useState(false)
+const [editing, setEditing] = useState(false)
 
 // Poistometodi
 const deleteCustomer = (cust) => {
@@ -23,6 +26,7 @@ let answer = window.confirm(`Remove customer: ${cust.companyName} ?`)
        setShowMessage(true)
        setIsPositive(true)
        window.scrollBy(0,-10000) // scrollataan ylös jotta nähdään alert
+
        
        // Messagan piilotus 
        setTimeout(()=> setShowMessage(false), 4000)
@@ -58,7 +62,7 @@ return (
 
 
             {showDetails && <div className="customerDetails">
-                <button>Edit</button>
+                <button onClick={()=> setEditing(true)}>Edit</button>
                 <button onClick={()=> deleteCustomer(customer)}>Delete</button>
                  <table>
             <thead>
@@ -80,6 +84,13 @@ return (
                 </tr>
             </tbody>
          </table>
+
+         {editing && <CustomerEdit custToEdit={customer} 
+         setEditing={setEditing} setMessage={setMessage}
+         setShowMessage={setShowMessage}
+        setIsPositive={setIsPositive}
+         />}
+
     </div>
     }
 
