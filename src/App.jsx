@@ -5,6 +5,15 @@ import Laskuri from './Laskuri'
 import { useState } from 'react'
 import Message from './Message'
 
+//navigointi ja Bootstrap importit
+import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+
+
+
+
 function App() {
   // State määrittäää näytetäänkö laskuria
   const [showLaskuri, setShowLaskuri] = useState(false)
@@ -18,25 +27,33 @@ function App() {
   return (
     
       <div>
-        <h1>Nortwind Corporation</h1>
+
+<Router>
+      
+      <Navbar bg="dark" variant="dark">
+        <Nav className="mr-auto">
+            <Nav.Link href='/customers'>Asiakkaat</Nav.Link>
+            <Nav.Link href='/users'>Users</Nav.Link> 
+            <Nav.Link href='/laskuri'>Laskuri</Nav.Link>
+        </Nav>
+      </Navbar>
+    
+
+        <h2>Nortwind Corporation</h2>
         {showMessage && <Message message={message} isPositive={isPositive}/>}
 
-        <CustomersList  setMessage={setMessage} setShowMessage={setShowMessage} setIsPositive={setIsPositive} />
-
-        <br/>
-
-
-        {showLaskuri ? <button onClick= {() => setShowLaskuri(false)}>
-          Piilota laskuri</button> : 
-          <button onClick= {() => setShowLaskuri(true)}>Näytä laskuri
-          </button>
-        } 
-
-
-        {showLaskuri && <Laskuri otsikko="Laskuri 1"/> }
-
-        {/* <Laskuri otsikko="Laskuri 2"/> */}
-        {/* <Laskuri otsikko="Laskuri 3"/> */}
+        <Routes>
+          <Route path="/customers"
+          element={<CustomersList setMessage={setMessage} setIsPositive={setIsPositive} 
+          setShowMessage={setShowMessage} />}>
+          </Route>
+          
+          <Route path="/laskuri" 
+          element={<Laskuri  otsikko={"Laskuri"}/>}>
+        </Route>
+        
+        </Routes>
+      </Router>
 
 
       </div>

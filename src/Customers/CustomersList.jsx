@@ -62,7 +62,7 @@ const [search, setSearch]= useState("")
 
                 const lowerCaseName = cust.companyName.toLowerCase()
 
-                if (lowerCaseName.indexOf(search) > -1) {
+                if (lowerCaseName.indexOf(search.toLowerCase()) > -1) {
                     return(
                         <Customer key={cust.customeId} customer = {cust}
                         setMessage={setMessage} setShowMessage={setShowMessage} 
